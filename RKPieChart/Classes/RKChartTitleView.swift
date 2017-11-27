@@ -32,20 +32,25 @@ class RKChartTitleView: UIView, Configurable {
         let iconView = UIView(frame: .zero)
         iconView.translatesAutoresizingMaskIntoConstraints = false
         iconView.backgroundColor = item.color
-        iconView.layer.cornerRadius = 4
+        //iconView.layer.cornerRadius = 4
         iconView.clipsToBounds = true
         addSubview(iconView)
         
         let titleLabel = UILabel(frame: .zero)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = item.title
-        titleLabel.font = UIFont(name: "HelveticaNeue", size: 12.0)
+        titleLabel.textColor = UIColor.darkGray
+        if let font = item.font {
+            titleLabel.font = font
+        } else {
+            titleLabel.font = UIFont(name: "HelveticaNeue", size: 12.0)
+        }
         titleLabel.numberOfLines = 1
         addSubview(titleLabel)
         
         iconView.heightAnchor.constraint(equalToConstant: 8).isActive = true
         iconView.widthAnchor.constraint(equalToConstant: 8).isActive = true
-        iconView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 35).isActive = true
+        iconView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         iconView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
         titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 8).isActive = true

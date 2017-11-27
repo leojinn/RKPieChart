@@ -13,11 +13,14 @@ public class RKPieChartItem {
     var startAngle: CGFloat?
     var endAngle: CGFloat?
     var title: String?
+    var font: UIFont?
     
-    public init(ratio: uint, color: UIColor, title: String? = nil) {
+    
+    public init(ratio: uint, color: UIColor, title: String? = nil, font: UIFont? = nil) {
         self.ratio = CGFloat(ratio)
         self.color = color
         self.title = title
+        self.font = font
     }
 }
 

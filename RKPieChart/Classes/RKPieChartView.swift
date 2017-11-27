@@ -80,7 +80,7 @@ public class RKPieChartView: UIView {
     private var totalRatio: CGFloat = 0
     private let itemHeight: CGFloat = 10.0
     private var centerTitle: String?
-    private var centerLabel: UILabel?
+    public var centerLabel: UILabel?
     
     private var currentTime = CACurrentMediaTime()
     
@@ -120,6 +120,7 @@ public class RKPieChartView: UIView {
     convenience public init(items: [RKPieChartItem], centerTitle: String? = nil) {
         self.init()
         self.items = items
+        centerLabel = UILabel(frame: .zero)
         self.centerTitle = centerTitle
         calculateAngles()
         backgroundColor = .clear
@@ -186,25 +187,21 @@ public class RKPieChartView: UIView {
                 deepPath.lineCapStyle = style
                 deepPath.stroke()
             }
-            if(centerLabel == nil && centerTitle != nil) {
-                centerLabel = UILabel(frame: .zero)
-                centerLabel?.translatesAutoresizingMaskIntoConstraints = false
-                centerLabel?.font = UIFont(name: "HelveticaNeue", size: 14.0)
-                centerLabel?.minimumScaleFactor = 0.7
-                centerLabel?.numberOfLines = 2
-                centerLabel?.textAlignment = .center
-                centerLabel?.text = centerTitle
-                self.addSubview(centerLabel!)
-                
-                centerLabel?.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-                centerLabel?.widthAnchor.constraint(equalToConstant: radius/2 - arcWidth/2).isActive = true
-                
-                if (isTitleViewHidden) {
-                    centerLabel?.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-                }
-                else {
-                    centerLabel?.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -(CGFloat(items.count) * itemHeight)).isActive = true
-                }
+            
+            centerLabel?.translatesAutoresizingMaskIntoConstraints = false
+            centerLabel?.minimumScaleFactor = 0.7
+            centerLabel?.numberOfLines = 3
+            centerLabel?.textAlignment = .center
+            self.addSubview(centerLabel!)
+            
+            centerLabel?.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+            centerLabel?.widthAnchor.constraint(equalToConstant: radius * 2 - arcWidth/2).isActive = true
+            
+            if (isTitleViewHidden) {
+                centerLabel?.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            }
+            else {
+                centerLabel?.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -(CGFloat(items.count) * itemHeight)).isActive = true
             }
         }
     }
@@ -229,7 +226,7 @@ public class RKPieChartView: UIView {
     /// show each item's title
     private func showChildTitles() {
         if (titlesView == nil) {
-            titlesView = UIStackView(frame: CGRect(x: 0, y: bounds.height - (CGFloat(2 * items.count) * itemHeight), width: bounds.width, height: CGFloat(2 * items.count) * itemHeight))
+            titlesView = UIStackView(frame: CGRect(x: 0, y: bounds.height - (CGFloat(2 * items.count) * itemHeight) + 4, width: bounds.width, height: CGFloat(2 * items.count) * itemHeight))
             titlesView?.backgroundColor = .gray
             titlesView?.axis = .vertical
             titlesView?.distribution  = .fillEqually
