@@ -219,6 +219,9 @@ public class RKPieChartView: UIView {
             if item.endAngle! > 2 * π {
                 item.endAngle = item.endAngle! - 2 * π
             }
+            if item.ratio == 100.0 {
+                item.endAngle = item.endAngle! - 0.000001
+            }
         }
     }
     
