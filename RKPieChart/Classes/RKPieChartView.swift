@@ -164,7 +164,7 @@ public class RKPieChartView: UIView {
                 shapeLayer.fillColor = UIColor.clear.cgColor
                 
                 if let lineCap = (LineCapStyle(rawValue: Int(style.rawValue))?.description) {
-                    shapeLayer.lineCap = lineCap
+                    shapeLayer.lineCap = convertToCAShapeLayerLineCap(lineCap)
                 }
                 
                 layer.addSublayer(shapeLayer)
@@ -297,4 +297,9 @@ private extension UIColor {
         return UIColor()
     }
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToCAShapeLayerLineCap(_ input: String) -> CAShapeLayerLineCap {
+	return CAShapeLayerLineCap(rawValue: input)
 }
